@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+C:\Users\admin\Downloads\Study\ProjectJavaCore\Java_Calculator\.metadata\.plugins\org.eclipse.jdt.core
+3332057118.index
+3413725848.index

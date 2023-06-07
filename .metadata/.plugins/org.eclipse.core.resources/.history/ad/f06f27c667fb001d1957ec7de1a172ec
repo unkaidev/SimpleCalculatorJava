@@ -1,0 +1,35 @@
+package model;
+
+public class CalculatorModel {
+	private double topValue;
+	private String downValue;
+	
+	public CalculatorModel() {
+		this.downValue = "";
+		this.topValue = 0;
+	}
+
+	public double getTopValue() {
+		return topValue;
+	}
+
+	public void setTopValue(double topValue) {
+		this.topValue = topValue;
+	}
+
+	public String getDownValue() {
+		return downValue;
+	}
+
+	public void setDownValue(String downValue) {
+		this.downValue = downValue;
+	}
+
+	public String createValue(String s) {
+		return s += this.downValue;
+	}
+	
+	
+	
+	
+}

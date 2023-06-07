@@ -1,0 +1,30 @@
+package model;
+
+public class CalculatorModel {
+	private double topValue;
+	private double downValue;
+	
+	public CalculatorModel() {
+	}
+
+	public double getTopValue() {
+		return topValue;
+	}
+
+	public void setTopValue(double topValue) {
+		this.topValue = topValue;
+	}
+
+	public double getDownValue() {
+		return downValue;
+	}
+
+	public void setDownValue(double downValue) {
+		this.downValue = downValue;
+	}
+
+	
+	
+	
+	
+}

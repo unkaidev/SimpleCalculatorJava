@@ -1,0 +1,319 @@
+package view;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+
+import javax.swing.JLabel;
+import java.net.URL;
+import javax.swing.border.LineBorder;
+
+//import control.CalculatorController;
+import control.CalculatorControllerClean;
+import model.CalculatorModel;
+
+public class CalculatorView extends JFrame {
+
+	private JPanel contentPane;
+	private CalculatorModel calculatorModel;
+	public JLabel lbl_InputValue, lbl_MValue;
+	public JButton btnPer, btnEdit, btnReset, btnBack, btnSqr, btnSqrt, btnDiv, btnRev, btn9, btn7, btn8, btnMul, btn4, btn5, btn6, btnSub, btn1, btn2, btn3, btnAdd, btnAlt, btn0, btnPoint, btnResult;
+	
+	public CalculatorView() throws HeadlessException {
+		this.calculatorModel = new CalculatorModel();
+		this.init();
+	}
+
+
+	/**
+	 * Launch the application.
+	 */
+	/*public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CalculatorView frame = new CalculatorView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}*/
+
+	/**
+	 * Create the frame.
+	 */
+	public void init() {
+		// Set layout
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("SPACEPC CALCULATOR");
+		setBounds(100, 100, 450, 545);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setLocationRelativeTo(null);
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		// Set Icon => JFrame
+				URL urlIconCalculator = CalculatorView.class.getResource("calculator_icon.png");
+				Image img = Toolkit.getDefaultToolkit().createImage(urlIconCalculator);
+				this.setIconImage(img);
+		
+		// Add Controller
+		CalculatorControllerClean calculatorController = new CalculatorControllerClean(this);
+				
+		// Value View Input
+		JPanel valueInput = new JPanel();
+		valueInput.setBackground(Color.WHITE);
+		valueInput.setForeground(Color.BLACK);
+		valueInput.setBorder(new LineBorder(new Color(0, 0, 0)));
+		valueInput.setBounds(10, 11, 414, 115);
+		contentPane.add(valueInput);
+		valueInput.setLayout(null);
+		
+		 lbl_MValue = new JLabel("0");
+		 lbl_MValue.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lbl_MValue.setBounds(0, 0, 414, 39);
+		lbl_MValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		valueInput.add(lbl_MValue);
+		
+		 lbl_InputValue = new JLabel("0");
+		 lbl_InputValue.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		lbl_InputValue.setBackground(Color.WHITE);
+		lbl_InputValue.setBounds(0, 41, 414, 74);
+		lbl_InputValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		valueInput.add(lbl_InputValue);
+		
+		// Value input
+		JPanel jButtons = new JPanel();
+		jButtons.setBounds(10, 137, 414, 358);
+		contentPane.add(jButtons);
+		jButtons.setLayout(new GridLayout(6, 4, 5, 5));
+		
+		// Button for Percent
+		 btnPer = new JButton("%");
+		btnPer.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnPer.addActionListener(calculatorController);
+		btnPer.setFocusable(false);
+		jButtons.add(btnPer);
+		
+		// Button for Edit
+		 btnEdit = new JButton("CE");
+		btnEdit.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnEdit.addActionListener(calculatorController);
+		btnEdit.setFocusable(false);
+		jButtons.add(btnEdit);
+		
+		//Button for Reset
+		 btnReset = new JButton("C");
+		btnReset.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnReset.addActionListener(calculatorController);
+		btnReset.setFocusable(false);
+		jButtons.add(btnReset);
+		
+		//Button for Backspace
+		 btnBack = new JButton("<BACK");
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnBack.addActionListener(calculatorController);
+		btnBack.setFocusable(false);
+		jButtons.add(btnBack);
+		
+		//Button for Reverse
+		 btnRev = new JButton("1/a");
+		btnRev.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnRev.addActionListener(calculatorController);
+		btnRev.setFocusable(false);
+		jButtons.add(btnRev);
+		
+		//Button for Pow
+		 btnSqr = new JButton("a^2");
+		btnSqr.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnSqr.addActionListener(calculatorController);
+		btnSqr.setFocusable(false);
+		jButtons.add(btnSqr);
+		
+		//Button for SQRT
+		 btnSqrt = new JButton("sqrt(a)");
+		btnSqrt.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnSqrt.addActionListener(calculatorController);
+		btnSqrt.setFocusable(false);
+		jButtons.add(btnSqrt);
+		
+		//Button for Division
+		 btnDiv = new JButton(":");
+		btnDiv.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnDiv.addActionListener(calculatorController);
+		btnDiv.setFocusable(false);
+		jButtons.add(btnDiv);
+		
+		//Button number 7
+		 btn7 = new JButton("7");
+		btn7.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn7.addActionListener(calculatorController);
+		btn7.setFocusable(false);
+		jButtons.add(btn7);
+		
+		//Button number 8
+		 btn8 = new JButton("8");
+		btn8.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn8.addActionListener(calculatorController);
+		btn8.setFocusable(false);
+		jButtons.add(btn8);
+		
+		//Button number 9
+		 btn9 = new JButton("9");
+		btn9.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn9.addActionListener(calculatorController);
+		btn9.setFocusable(false);
+		jButtons.add(btn9);
+		
+		//Button for Multiply
+		 btnMul = new JButton("x");
+		btnMul.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnMul.addActionListener(calculatorController);
+		btnMul.setFocusable(false);
+		jButtons.add(btnMul);
+		
+		//Button number 4
+		 btn4 = new JButton("4");
+		btn4.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn4.addActionListener(calculatorController);
+		btn4.setFocusable(false);
+		jButtons.add(btn4);
+		
+		//Button number 5
+		 btn5 = new JButton("5");
+		btn5.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn5.addActionListener(calculatorController);
+		btn5.setFocusable(false);
+		jButtons.add(btn5);
+		
+		//Button number 6
+		 btn6 = new JButton("6");
+		btn6.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn6.addActionListener(calculatorController);
+		btn6.setFocusable(false);
+		jButtons.add(btn6);
+		
+		//Button for Subtraction
+		 btnSub = new JButton("-");
+		btnSub.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnSub.addActionListener(calculatorController);
+		btnSub.setFocusable(false);
+		jButtons.add(btnSub);
+		
+		//Button number 1
+		 btn1 = new JButton("1");
+		btn1.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn1.addActionListener(calculatorController);
+		btn1.setFocusable(false);
+		jButtons.add(btn1);
+		
+		//Button number 2
+		 btn2 = new JButton("2");
+		btn2.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn2.addActionListener(calculatorController);
+		btn2.setFocusable(false);
+		jButtons.add(btn2);
+		
+		//Button number 3
+		 btn3 = new JButton("3");
+		btn3.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn3.addActionListener(calculatorController);
+		btn3.setFocusable(false);
+		jButtons.add(btn3);
+		
+		//Button for Addition
+		 btnAdd = new JButton("+");
+		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnAdd.addActionListener(calculatorController);
+		btnAdd.setFocusable(false);
+		jButtons.add(btnAdd);
+		
+		//Button for Alter
+		 btnAlt = new JButton("+/-");
+		btnAlt.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnAlt.addActionListener(calculatorController);
+		btnAlt.setFocusable(false);
+		jButtons.add(btnAlt);
+		
+		//Button number 0
+		 btn0 = new JButton("0");
+		btn0.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btn0.addActionListener(calculatorController);
+		btn0.setFocusable(false);
+		jButtons.add(btn0);
+		
+		//Button for decimal number
+		 btnPoint = new JButton(".");
+		btnPoint.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnPoint.addActionListener(calculatorController);
+		btnPoint.setFocusable(false);
+		jButtons.add(btnPoint);
+		
+		//Button for result
+		 btnResult = new JButton("=");
+		btnResult.setForeground(Color.BLUE);
+		btnResult.setBackground(SystemColor.textHighlight);
+		btnResult.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		btnResult.addActionListener(calculatorController);
+		btnResult.setFocusable(false);
+		jButtons.add(btnResult);
+		
+		jButtons.setFocusable(false);
+		this.addKeyListener(calculatorController);
+		
+		this.setVisible(true);
+		
+
+	}
+	public int getOperator() {
+		return calculatorModel.getOperator();
+	}
+	
+	public float getOldIterator() {
+		return calculatorModel.getOldIterator();
+	}
+	
+	public void setOperator(int operator) {
+		calculatorModel.setOperator(operator);
+	}
+	
+	public void setOperatorState(boolean operatorState) {
+		calculatorModel.setOperatorState(operatorState);;
+	}
+
+	public void setOldIterator(float oldIterator) {
+		calculatorModel.setOldIterator(oldIterator);		
+	}
+	
+	public boolean isOperatorState() {
+		return calculatorModel.isOperatorState();
+	}
+	
+	public boolean isOperatorKey(char keyChar) {
+        return keyChar == '+' || keyChar == '-' || keyChar == '*' || keyChar == '/' || keyChar == '\n' || keyChar == '.';
+    }
+	
+	public boolean isDigitButton(String buttonLabel) {
+	    // Kiểm tra xem buttonLabel có phải là một nút số không
+	    // Điều kiện có thể được định nghĩa tùy thuộc vào cách xác định một nút số trong ứng dụng của bạn
+
+	    // Ví dụ: Kiểm tra xem buttonLabel có phải là một trong các số từ 0 đến 9 hay không
+	    return buttonLabel.matches("[0-9]");
+	}
+
+	
+	}
+
+
+

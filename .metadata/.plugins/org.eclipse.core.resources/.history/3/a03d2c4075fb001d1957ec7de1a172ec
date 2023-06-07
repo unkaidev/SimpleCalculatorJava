@@ -1,0 +1,43 @@
+package model;
+
+public class CalculatorModel {
+	private float oldIterator;
+	private float newIterator;
+	private boolean operatorState;
+	private int operator;
+	public CalculatorModel() {
+		this.oldIterator = 0;
+		this.newIterator = 0;
+		this.operatorState = true;
+		this.operator = -1;
+	}
+	public float getOldIterator() {
+		return oldIterator;
+	}
+	public void setOldIterator(float oldIterator) {
+		this.oldIterator = oldIterator;
+	}
+	public float getNewIterator() {
+		return newIterator;
+	}
+	public void setNewIterator(float newIterator) {
+		this.newIterator = newIterator;
+	}
+	public boolean isOperatorState() {
+		return operatorState;
+	}
+	public void setOperatorState(boolean operatorState) {
+		this.operatorState = operatorState;
+	}
+	public int getOperator() {
+		return operator;
+	}
+	public void setOperator(int operator) {
+		this.operator = operator;
+	}
+	
+	
+	
+	
+	
+}

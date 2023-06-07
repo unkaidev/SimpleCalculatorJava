@@ -1,0 +1,28 @@
+package model;
+
+public class CalculatorModel {
+	private String labelValue;
+	private double answer;
+	
+	public CalculatorModel() {
+	}
+
+	public String getLabelValue() {
+		return labelValue;
+	}
+
+	public void setLabelValue(String labelValue) {
+		this.labelValue = labelValue;
+	}
+
+	public double getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(double answer) {
+		this.answer = answer;
+	}
+	
+	
+	
+}

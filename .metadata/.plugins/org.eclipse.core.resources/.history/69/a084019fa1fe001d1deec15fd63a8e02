@@ -1,0 +1,356 @@
+package control;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import view.CalculatorView;
+
+public class CalculatorControllerClean extends KeyAdapter implements ActionListener{
+
+	private CalculatorView calculatorView;
+	private String currentValue,stringMemory;
+	private String mValue;
+
+	public CalculatorControllerClean(CalculatorView calculatorView) {
+		this.calculatorView = calculatorView;
+	}
+
+	public void setFunction(int i) {
+		float result;
+		float newIterator = 0;	
+		mValue = calculatorView.lbl_MValue.getText();		
+		currentValue = calculatorView.lbl_InputValue.getText();
+		if(!currentValue.isEmpty())
+			newIterator = Float.parseFloat(currentValue);
+		// Equals		
+		if (i == 0) {
+			switch (calculatorView.getOperator()) {
+			case 0:
+				result = calculatorView.getOldIterator() + newIterator;
+				calculatorView.lbl_InputValue.setText(String.valueOf(result));
+				calculatorView.lbl_MValue.setText(
+						String.valueOf(calculatorView.getOldIterator()) + " + " + String.valueOf(newIterator) + " = ");
+				break;
+			case 1:
+				result = calculatorView.getOldIterator() - newIterator;
+				calculatorView.lbl_InputValue.setText(String.valueOf(result));
+				calculatorView.lbl_MValue.setText(
+						String.valueOf(calculatorView.getOldIterator()) + " - " + String.valueOf(newIterator) + " = ");
+				break;
+			case 2:
+				result = calculatorView.getOldIterator() * newIterator;
+				calculatorView.lbl_InputValue.setText(String.valueOf(result));
+				calculatorView.lbl_MValue.setText(
+						String.valueOf(calculatorView.getOldIterator()) + " x " + String.valueOf(newIterator) + " = ");
+				break;
+			case 3:
+				if (newIterator != 0) {
+					result = calculatorView.getOldIterator() / newIterator;
+					calculatorView.lbl_InputValue.setText(String.valueOf(result));
+					calculatorView.lbl_MValue.setText(String.valueOf(calculatorView.getOldIterator()) + " : "+ String.valueOf(newIterator) + " = ");
+					;
+				}
+				break;
+			default:
+				calculatorView.setOldIterator(newIterator);
+				calculatorView.lbl_MValue.setText(String.valueOf(calculatorView.getOldIterator() + " = "));
+			}
+			calculatorView.setOperator(-1);
+			calculatorView.setOperatorState(true);
+			return;
+		}
+
+		//Add
+		if (i == 1) {
+			calculatorView.setOperator(0);
+			calculatorView.setOperatorState(true);
+			calculatorView.setOldIterator(Float.parseFloat(currentValue));
+			calculatorView.lbl_MValue.setText(stringMemory);
+			return;
+		}
+
+		// Sub
+		if (i == 2) {
+			calculatorView.setOperator(1);
+			calculatorView.setOperatorState(true);
+			calculatorView.setOldIterator(Float.parseFloat(currentValue));
+			calculatorView.lbl_MValue.setText(stringMemory);
+			return;
+		}
+
+		// Mul 
+		if(i == 3) {
+			calculatorView.setOperator(2); calculatorView.setOperatorState(true);
+			calculatorView.setOldIterator(Float.parseFloat(currentValue)); 
+			calculatorView.lbl_MValue.setText(stringMemory); 
+			return; 
+		}
+
+		//Div 
+		if(i == 4) {
+			calculatorView.setOperator(3); 
+			calculatorView.setOperatorState(true);
+			calculatorView.setOldIterator(Float.parseFloat(currentValue)); 
+			calculatorView.lbl_MValue.setText(stringMemory); 
+			return; 
+		}
+
+		//SQR 
+		if(i == 5) {
+			if(newIterator >= 0) {
+				result = (float)newIterator*newIterator;
+				calculatorView.lbl_InputValue.setText(String.valueOf(result));
+				if (mValue.isEmpty() || mValue.indexOf('=') > 0 || mValue == "0") {
+					calculatorView.lbl_MValue.setText(String.valueOf(newIterator) + "^2 = ");
+				}else
+					calculatorView.lbl_MValue.setText(mValue + " (" + String.valueOf(newIterator) + "^2) ");
+
+			}
+			calculatorView.setOperatorState(true);
+			return;
+		}
+
+		//Revert
+		if(i == 6) {
+			if(newIterator != 0) {
+				result = (float)1/newIterator;
+				calculatorView.lbl_InputValue.setText(String.valueOf(result));
+				if (mValue.isEmpty() || mValue.indexOf('=') > 0 || mValue == "0") {
+					calculatorView.lbl_MValue.setText("1 / " + String.valueOf(newIterator) + " = ");
+				}else
+					calculatorView.lbl_MValue.setText(mValue + "1 / " + String.valueOf(newIterator));
+			}
+			calculatorView.setOperatorState(true);
+			return;
+		}
+		//SQRT
+		if(i == 7) {
+			if(newIterator >= 0) {
+				result = (float)Math.sqrt(newIterator);
+				calculatorView.lbl_InputValue.setText(String.valueOf(result));
+				if (mValue.isEmpty() || mValue.indexOf('=') > 0 || mValue == "0") {
+					calculatorView.lbl_MValue.setText("Sqrt(" + String.valueOf(newIterator) + ") = ");
+				}else
+					calculatorView.lbl_MValue.setText(mValue + "Sqrt(" + String.valueOf(newIterator) + ")");
+
+			}
+			calculatorView.setOperatorState(true);
+			return;
+		}
+
+
+		// Percent
+		if(i == 8) {
+			result = (float)(newIterator / 100);
+			calculatorView.lbl_InputValue.setText(String.valueOf(result));
+			if (mValue.isEmpty() || mValue.indexOf('=') > 0 || mValue == "0") {
+				calculatorView.lbl_MValue.setText("(" + String.valueOf(newIterator) + ")% = ");
+			}else
+				calculatorView.lbl_MValue.setText(mValue + "(" + String.valueOf(newIterator) + ")% ");
+
+
+			;
+			calculatorView.setOperatorState(true);
+			return;
+		}
+
+		// Backspace
+		if (i == 9) {
+			if (!currentValue.isEmpty() && mValue.indexOf('=') <= 0) {
+				String newValue = currentValue.substring(0, currentValue.length() - 1);
+				if (newValue.isEmpty())
+				{
+					calculatorView.lbl_InputValue.setText("0");
+					calculatorView.setOperatorState(true);
+				}
+				else
+					calculatorView.lbl_InputValue.setText(newValue);
+			}
+			return;			
+		}
+
+		// point number
+		if ( i == 10) {
+			if (currentValue.indexOf('.') > 0)
+				calculatorView.lbl_InputValue.setText(currentValue);
+			else
+				calculatorView.lbl_InputValue.setText(currentValue + ".");
+			return;
+		}
+
+		// Alter
+		if (i == 11) {
+			calculatorView.lbl_InputValue.setText(Float.valueOf(currentValue)*(-1) +"");
+			return;
+		}
+		
+		// Reset
+		if (i == 12) {
+			calculatorView.setOperator(-1);
+			calculatorView.setOperatorState(true);
+			calculatorView.setOldIterator(0);
+			calculatorView.lbl_InputValue.setText("0");
+			calculatorView.lbl_MValue.setText("0");
+			return;
+		}
+		// edit
+		if (i == 13) {
+			calculatorView.lbl_InputValue.setText("0");
+			calculatorView.setOperatorState(true);
+			return;
+		}
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		String s = e.getActionCommand();
+		Object o = e.getSource();
+		stringMemory = calculatorView.lbl_InputValue.getText() + "" + s;
+		currentValue = calculatorView.lbl_InputValue.getText() +"";
+		
+		// Click Button of Result
+		if (o == calculatorView.btnResult) {
+			this.setFunction(0);
+		}
+			
+		// Click Button of Add
+		if (o == calculatorView.btnAdd) {
+			this.setFunction(1);
+		}
+
+		// Click Button of Sub
+		if (o == calculatorView.btnSub) {
+			this.setFunction(2);
+		}
+
+		// Click Button of Mul 
+		if(o == calculatorView.btnMul) {
+			this.setFunction(3);
+		}
+
+		//	Click Button of Div 
+		if(o == calculatorView.btnDiv) {
+			this.setFunction(4); 
+		}
+
+		//	Click Button of SQR 
+		if(o == calculatorView.btnSqr) {
+			this.setFunction(5);
+		}
+
+		// Click button of Revert
+		if(o == calculatorView.btnRev) {
+			this.setFunction(6);
+		}
+		//Click button of SQRT
+		if(o == calculatorView.btnSqrt) {
+			this.setFunction(7);
+		}
+
+		// Click button of Percent
+		if(o == calculatorView.btnPer) {
+			this.setFunction(8);
+		}
+
+		// Click button of Backspace
+		if (o == calculatorView.btnBack) {
+			this.setFunction(9);		
+		}
+
+		// Click point number
+		if (o == calculatorView.btnPoint) {
+			this.setFunction(10);
+		}
+
+		// Click Alter
+		if (o == calculatorView.btnAlt) {
+			this.setFunction(11);
+		}
+		// Click button number
+		if (this.calculatorView.isOperatorState()) {
+			calculatorView.lbl_InputValue.setText(s);
+			calculatorView.setOperatorState(false);
+		} else
+			calculatorView.lbl_InputValue.setText(currentValue + s );
+
+		// Click Button of Reset
+		if (o == calculatorView.btnReset) {
+			this.setFunction(12);
+		}
+		// Click Button of edit
+		if (o == calculatorView.btnEdit) {
+			this.setFunction(13);
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		char keyChar = e.getKeyChar();
+		currentValue = calculatorView.lbl_InputValue.getText() +"";
+		stringMemory = calculatorView.lbl_InputValue.getText() + " " + String.valueOf(keyChar);
+
+		if (Character.isDigit(keyChar)) {
+			if(this.calculatorView.isOperatorState()){
+				// Nếu là ký tự số, thêm nó vào dữ liệu đầu vào
+				calculatorView.lbl_InputValue.setText(String.valueOf(keyChar));
+				System.out.println(currentValue);
+				calculatorView.setOperatorState(false);
+			}else {
+				calculatorView.lbl_InputValue.setText(currentValue += String.valueOf(keyChar));
+				System.out.println(currentValue);
+			}
+
+		}else if (calculatorView.isOperatorKey(keyChar)) {
+			System.out.println(keyChar);
+			// Nếu là ký tự toán tử, đặt toán tử và cập nhật trạng thái
+			if (keyChar == '\n') {
+				this.setFunction(0);
+				}
+		if (keyChar == '+') {
+			this.setFunction(1);
+		}
+		if (keyChar == '-'){
+			this.setFunction(2);
+		}
+		if (keyChar == '*'){
+			this.setFunction(3);
+		}
+		if (keyChar == '/'){
+			this.setFunction(4);
+		}
+		if (keyChar == '.') {
+			this.setFunction(10);
+		}
+		}
+
+	} 
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		mValue = calculatorView.lbl_MValue.getText();
+		int keyCode = e.getKeyCode();
+
+		if (keyCode == KeyEvent.VK_BACK_SPACE) {
+			if (!currentValue.isEmpty() && mValue.indexOf('=') <= 0) {
+				String newValue = currentValue.substring(0, currentValue.length() - 1);
+				if (newValue.isEmpty())
+				{
+					calculatorView.lbl_InputValue.setText("0");
+					calculatorView.setOperatorState(true);
+				}
+				else
+					calculatorView.lbl_InputValue.setText(newValue);
+			}
+			return;			
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
+	}
+}

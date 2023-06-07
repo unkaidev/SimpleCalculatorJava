@@ -1,0 +1,41 @@
+package view;
+
+import model.CalculatorModel;
+
+public class CalculatorViewMethod {
+	CalculatorModel calculatorModel ;
+	private String currentValue,stringMemory,mValue;
+
+	public int getOperator() {
+		return calculatorModel.getOperator();
+	}
+	
+	public float getOldIterator() {
+		return calculatorModel.getOldIterator();
+	}
+	
+	public void setOperator(int operator) {
+		calculatorModel.setOperator(operator);
+	}
+	
+	public void setOperatorState(boolean operatorState) {
+		calculatorModel.setOperatorState(operatorState);;
+	}
+
+	public void setOldIterator(float oldIterator) {
+		calculatorModel.setOldIterator(oldIterator);		
+	}
+	
+	public boolean isOperatorState() {
+		return calculatorModel.isOperatorState();
+	}
+	
+	public boolean isOperatorKey(char keyChar) {
+        return keyChar == '+' || keyChar == '-' || keyChar == '*' || keyChar == '/' || keyChar == '\n' || keyChar == '.';
+    }
+	
+	
+	
+	
+	
+}
