@@ -1,4 +1,4 @@
-# The Hi-School App🚀
+# The Simple Calculator App🚀
 
 <br/>
 
